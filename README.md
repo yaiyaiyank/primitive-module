@@ -1,17 +1,20 @@
-なぜ _list.pyではなく_list/__init__.pyのように設計しているかなのですが、
+# 基本データ型の拡張モジュール
 
-```python
-import base_utils_module
+自分のエコシステム用につくった基本データ型のユーティリティ的なモジュール<br>
+役立ちそう ∧ 機密情報なし なのでパブリックで公開
 
-base_utils_module._list.unique_preserve_order()
+# install
+### 動作環境
+* Python 3.13↑
+### インストール方法 
+uvなら
+```bash
+uv add git+https://github.com/yaiyaiyank/primitive-module
+```
+pipなら
+```bash
+pip install git+https://github.com/yaiyaiyank/primitive-module
 ```
 
-のように使えるからです。
-
-もちろん、
-```python
-from base_utils_module import _list
-
-_list.unique_preserve_order()
-```
-のようにも使えます。
+# usage
+TODO

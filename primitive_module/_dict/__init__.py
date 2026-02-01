@@ -1,3 +1,7 @@
+from pathlib import Path
+import json
+
+
 def grid_split(dictionary: dict[str], column_count: int) -> list[dict]:
     """
     dictをグリッドへ
@@ -28,3 +32,23 @@ def grid_split(dictionary: dict[str], column_count: int) -> list[dict]:
         output_lists[count][key] = value
 
     return output_lists
+
+
+def _valid_json(json_file_path: Path | str) -> Path:
+    if isinstance(json_file_path, str):
+        json_file_path = Path(json_file_path)
+    if json_file_path.suffix != ".json":
+        raise ValueError("jsonファイルのみです。")
+    return json_file_path
+
+
+def write_json(json_file_path: Path | str, dictionary: dict[str]):
+    json_file_path = _valid_json(json_file_path)
+    with json_file_path.open("w", encoding="utf8") as f:
+        json.dump(dictionary, f, ensure_ascii=False, indent=4)
+
+
+def read_json(json_file_path: Path | str) -> dict[str]:
+    json_file_path = _valid_json(json_file_path)
+    with json_file_path.open("r", encoding="utf8") as f:
+        return json.load(f)

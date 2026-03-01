@@ -1,3 +1,5 @@
+from pathlib import Path
+import tomllib
 from primitive_module._dict.json_io import write_json, read_json, dumps, loads
 
 
@@ -31,3 +33,20 @@ def grid_split(dictionary: dict[str], column_count: int) -> list[dict]:
         output_lists[count][key] = value
 
     return output_lists
+
+
+def read_toml(path: Path | str) -> dict[str]:
+    path = Path(path)
+    if not path.exists():
+        raise FileNotFoundError("tomlファイルがありません。")
+    if not path.suffix == ".toml":
+        raise ValueError("tomlファイルではありません。")
+    with (
+        path.open("rb") as f
+    ):  # バイナリはencoding="utf8"いらないナリ。むしろこれつけるとValueError: binary mode doesn't take an encoding argumentになる
+        try:
+            toml = tomllib.load(f)
+        except tomllib.TOMLDecodeError:
+            print("tomlが正しい形式ではないので読み込めないです。")
+            raise
+    return toml

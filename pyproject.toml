@@ -10,3 +10,6 @@ dependencies = []
 dev = [
     "ipykernel>=7.2.0",
 ]
+
+[tool.setuptools.packages.find]
+include = ["primitive_module", "primitive_module.*"]
